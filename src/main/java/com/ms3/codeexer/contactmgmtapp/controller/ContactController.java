@@ -73,6 +73,21 @@ public class ContactController {
         return identification;
     }
 
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.OK)
+    public MessageDTO deleteContact(@RequestBody @Validated ContactDTO contactDTO) {
+        Optional<Identification> optIdentification = identificationRepository.findById(contactDTO.getIdentification().getIdentificationId());
+        if(optIdentification.isPresent())
+        {
+            identificationRepository.delete(optIdentification.get());
+            return new MessageDTO(HttpStatus.OK.toString(), "ID: "+contactDTO.getIdentification().getIdentificationId()+ " successfully deleted.");
+        }
+        else
+        {
+            throw new NoSuchElementException("No Contact Record found with ID: "+contactDTO.getIdentification().getIdentificationId());
+        }
+    }
+
 
     /**
      * Exception handler if NoSuchElementException is thrown in this Controller
