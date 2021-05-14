@@ -418,12 +418,17 @@
 
         function openUpdateModal(id) {
             modalAction = "UPDATE"; //Set to UPDATE when Name Link is clicked from Data Table
+
+            document.getElementsByClassName("contact-modal-title")[0].innerHTML = 'Update Contact'
+
             getIdentificationRecord(id);
         }
 
 
         function openNewModal() {
             modalAction = "CREATE"; //Set to CREATE when New Contact button is clicked
+
+            document.getElementsByClassName("contact-modal-title")[0].innerHTML = 'New Contact'
 
             $('#addressInputTable tr').remove();
             addNewAddressRow(); //By default, add a new row when opening New Contact Modal
@@ -553,7 +558,7 @@
         <div class="modal-dialog  modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="newContactModalTitle" style="font-weight: bolder">New Contact</h4>
+                    <h4 class="modal-title contact-modal-title" id="newContactModalTitle" style="font-weight: bolder">New Contact</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
