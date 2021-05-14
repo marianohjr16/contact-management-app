@@ -16,7 +16,7 @@ Code Exercise for MS3 Application
     > https://github.com/marianohjr16/contact-management-app/blob/main/Table_Relationship_Diagram.pdf
  
 ## Application Screenshot
- ![Search Page](https://github.com/marianohjr16/contact-management-app/tree/main/src/main/resources/static/md-img/searchpage.JPG)
+ ![Search Page](https://raw.githubusercontent.com/marianohjr16/contact-management-app/main/src/main/resources/static/md-img/searchpage.JPG)
  ![New Contact](https://github.com/marianohjr16/contact-management-app/tree/main/src/main/resources/static/md-img/new-contact.JPG?raw=true)
  ![Update Contact](https://github.com/marianohjr16/contact-management-app/tree/main/src/main/resources/static/md-img/upd-contact.JPG?raw=true)
  
