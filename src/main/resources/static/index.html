@@ -289,9 +289,17 @@
                         let $this = $(this)
                         $this.attr('id','inputPreferred_' + i);
                     });
+
+                    let inputPrefCtr = 0;
+                    let loopCounter = 0;
                     $("[name^='inputPreferred_']").each(function(i){
+                        if(loopCounter == 2) {
+                            inputPrefCtr++;
+                            loopCounter = 0; //reset to 1
+                        }
                         let $this = $(this)
-                        $this.attr('name','inputPreferred_' + i);
+                        $this.attr('name','inputPreferred_' + inputPrefCtr);
+                        loopCounter++;
                     });
 
                     $("[id^='inputCommunicationId_']").each(function(i){
