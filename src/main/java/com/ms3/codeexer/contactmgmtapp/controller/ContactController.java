@@ -3,13 +3,14 @@ package com.ms3.codeexer.contactmgmtapp.controller;
 import com.ms3.codeexer.contactmgmtapp.converter.ContactConverter;
 import com.ms3.codeexer.contactmgmtapp.data.entity.Identification;
 import com.ms3.codeexer.contactmgmtapp.data.repo.IdentificationRepository;
-import com.ms3.codeexer.contactmgmtapp.dto.ContactDTO;
-import com.ms3.codeexer.contactmgmtapp.dto.MessageDTO;
-import com.ms3.codeexer.contactmgmtapp.dto.SearchDTO;
+import com.ms3.codeexer.contactmgmtapp.dto.*;
+import javassist.tools.web.BadHttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.*;
 
@@ -68,7 +69,36 @@ public class ContactController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public Identification createContact(@RequestBody @Validated ContactDTO contactDTO) {
+    public Identification createContact(@RequestBody @Validated ContactDTO contactDTO) throws BadHttpRequest {
+        //validate
+        if(StringUtils.isEmpty(contactDTO.getIdentification().getFirstName())
+        || StringUtils.isEmpty(contactDTO.getIdentification().getLastName())
+        || StringUtils.isEmpty(contactDTO.getIdentification().getDob())
+        || StringUtils.isEmpty(contactDTO.getIdentification().getGender())
+        || StringUtils.isEmpty(contactDTO.getIdentification().getTitle())) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Please fill out all identification fields.");
+        }
+
+        for(AddressDTO address : contactDTO.getAddress()) {
+            if(StringUtils.isEmpty(address.getCity())
+            || StringUtils.isEmpty(address.getNumber())
+            || StringUtils.isEmpty(address.getState())
+            || StringUtils.isEmpty(address.getStreet())
+            || StringUtils.isEmpty(address.getType())
+            || StringUtils.isEmpty(address.getUnit())
+            || StringUtils.isEmpty(address.getZipCode())){
+                throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Please fill out all address fields.");
+            }
+        }
+
+        for(CommunicationDTO commDTO : contactDTO.getCommunication()) {
+            if(StringUtils.isEmpty(commDTO.getType())
+            || StringUtils.isEmpty(commDTO.getPreferred())
+            || StringUtils.isEmpty(commDTO.getValue())) {
+                throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Please fill out all communication fields.");
+            }
+        }
+
         Identification identification = identificationRepository.save(contactConverter.convertToIdentificationEntity(contactDTO));
         return identification;
     }
@@ -97,8 +127,9 @@ public class ContactController {
      */
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NoSuchElementException.class)
-    public MessageDTO return400(NoSuchElementException ex) {
+    public MessageDTO return404(NoSuchElementException ex) {
         return new MessageDTO(HttpStatus.NOT_FOUND.toString(), ex.getMessage());
     }
+
 
 }
