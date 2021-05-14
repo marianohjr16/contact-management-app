@@ -9,8 +9,9 @@ Code Exercise for MS3 Application
 
 ## Additional Notes
   - In case project fails to build, you can run the JAR I uploaded in this path:
-    > /src/main/resources/static/output/ContactMgmtApp-0.0.1-SNAPSHOT.jar
-  - SQL for creating the database schema is found in <strong>/src/main/resources/schema.sql</strong>
+    > /src/main/resources/static/output-jar/ContactMgmtApp-0.0.1-SNAPSHOT.jar
+  - SQL for creating the database schema is found in 
+    > <strong>/src/main/resources/schema.sql</strong>
   - Table relationship diagram is found in:
     > https://github.com/marianohjr16/contact-management-app/blob/main/Table_Relationship_Diagram.pdf
  
